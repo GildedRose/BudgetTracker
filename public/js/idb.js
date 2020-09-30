@@ -1,3 +1,4 @@
+
 let db;
 const request = indexedDB.open('budget_tracker', 1)
 
@@ -35,7 +36,7 @@ function checkBudget() {
 
     getAll.onsuccess = function() {
         if (getAll.result.length > 0) {
-            fetch('/routes/api', {
+            fetch('./api/transaction', {
                 method: 'POST',
                 body: JSON.stringify(getAll.result),
                 headers: {
@@ -49,7 +50,7 @@ function checkBudget() {
                     throw new Error(serverResponse);
                 }
 
-                const transaction = db.transactio(['new_budget'], readwrite);
+                const transaction = db.transaction(['new_budget'], readwrite);
                 const budgetObjectStore = transaction.objectStore('new_budget');
                 //clear all items in store
                 budgetObjectStore.clear();
